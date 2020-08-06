@@ -17,12 +17,12 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand"><strong>Diana Store</strong></a>
+            <a class="navbar-brand" href="#"><strong>Diana Store</strong></a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Registro de ventas<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="busqueda.php">Consulta de producto</a>
                 </li>
                 <li class="nav-item">
@@ -37,9 +37,17 @@
     </nav>
     <section class="mt-4">
         <div class="container-fluid">
-            <h5 class="text-center text-primary">Registro de ventas</h5>
+            <h5 class="text-center text-primary">Consulta de producto</h5>
             <div class="row">
                 <div class="col-12">
+                    <div class="form-group">
+                        <label for="txtdescripcion">Categoría:</label>
+                        <select class="form-control">
+                            <option>Categoría 1</option>
+                            <option>Categoría 2</option>
+                            <option>Categoría 3</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="txtdescripcion">Nombre:</label>
                         <input type="text" name="" id="txtdescripcion" class="form-control">
