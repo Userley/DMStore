@@ -4,11 +4,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- needs for bootstrap-select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- bootstrap-select additional library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
+    <title>Diana Store</title>
 </head>
 
 <body>
@@ -41,12 +49,21 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="txtdescripcion">Nombre:</label>
-                        <input type="text" name="" id="txtdescripcion" class="form-control">
+                        <label for="txtproducto">producto:</label>
+                        <select class="selectpicker form-control" data-live-search="true" id="txtproducto">
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Barbecue</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="txtcantidad">Cantidad:</label>
-                        <input type="number" name="" id="" class="form-control">
+                        <input type="number" name="" min="1" id="txtcantidad" step="1" class="form-control">
+                    </div>
+                    <div class="form-group">
+
+                        <label for="txtprecio">Precio:</label>
+                        <input type="number" name="" id="txtprecio" class="form-control" step="1.00">
                     </div>
                 </div>
                 <div class="col-12">
@@ -54,6 +71,11 @@
             </div>
         </div>
     </section>
+    <script>
+        $(function() {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 </body>
 
 </html>
