@@ -21,11 +21,29 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_dmstore.categoria: ~0 rows (aproximadamente)
 DELETE FROM `categoria`;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` (`idcategoria`, `descripcion`) VALUES
+	(1, 'ABARROTES'),
+	(2, 'ENLATADOS'),
+	(3, 'LÁCTEOS'),
+	(4, 'SNACKS'),
+	(5, 'CONFITERÍA'),
+	(6, 'HARINAS'),
+	(7, 'FRUTAS Y VERDURAS'),
+	(8, 'BEBIDAS'),
+	(9, 'BEBIDAS ALCOHÓLICAS'),
+	(10, 'ALIMENTOS PREPARADOS'),
+	(11, 'CARNES'),
+	(12, 'AUTOMEDICACIÓN'),
+	(13, 'HIGIENE PERSONAL'),
+	(14, 'USO DOMESTICO'),
+	(15, 'HELADOS'),
+	(16, 'PRODUCTOS DE LIMPIEZA'),
+	(17, 'OTROS');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.clientes
@@ -78,11 +96,13 @@ CREATE TABLE IF NOT EXISTS `productos` (
   KEY `FK_Categoria_UndMedida` (`idundmedida`),
   CONSTRAINT `FK_Categoria_Productos` FOREIGN KEY (`icategoria`) REFERENCES `categoria` (`idcategoria`),
   CONSTRAINT `FK_Categoria_UndMedida` FOREIGN KEY (`idundmedida`) REFERENCES `unidadmedida` (`idundmedida`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_dmstore.productos: ~0 rows (aproximadamente)
 DELETE FROM `productos`;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` (`idproducto`, `descripcion`, `icategoria`, `idundmedida`, `preciocompra`, `precioventa`) VALUES
+	(1, 'LECHE IDEAL CREMOSITA', 3, NULL, 2.90, 3.30);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.servicios

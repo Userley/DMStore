@@ -1,9 +1,17 @@
+<?php
+include_once('Cnx.php');
+
+$rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from productos;");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- needs for bootstrap-select -->
@@ -31,7 +39,7 @@
                     <a class="nav-link" href="index.php">Registro de ventas<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="busqueda.php">Consulta de producto</a>
+                    <a class="nav-link" href="busqueda.php">Consulta de ventas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="registro.php">Registro de producto</a>
@@ -49,11 +57,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="txtproducto">producto:</label>
+                        <label for="txtproducto">Producto:</label>
                         <select class="selectpicker form-control" data-live-search="true" id="txtproducto">
-                            <option>Mustard</option>
-                            <option>Ketchup</option>
-                            <option>Barbecue</option>
+                            <?php
+                            while ($dataP = mysqli_fetch_assoc($rsProductos)) {
+                                echo "<option value='" . $dataP["idcategoria"] . "'>" . $dataP["descripcion"] . "</option>";
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">

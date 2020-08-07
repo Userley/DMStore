@@ -1,0 +1,17 @@
+insert into categoria (descripcion) values ('ABARROTES');
+insert into categoria (descripcion) values ('ENLATADOS');
+insert into categoria (descripcion) values ('LÁCTEOS');
+insert into categoria (descripcion) values ('SNACKS');
+insert into categoria (descripcion) values ('CONFITERÍA');
+insert into categoria (descripcion) values ('HARINAS');
+insert into categoria (descripcion) values ('FRUTAS Y VERDURAS');
+insert into categoria (descripcion) values ('BEBIDAS');
+insert into categoria (descripcion) values ('BEBIDAS ALCOHÓLICAS');
+insert into categoria (descripcion) values ('ALIMENTOS PREPARADOS');
+insert into categoria (descripcion) values ('CARNES');
+insert into categoria (descripcion) values ('AUTOMEDICACIÓN');
+insert into categoria (descripcion) values ('HIGIENE PERSONAL');
+insert into categoria (descripcion) values ('USO DOMESTICO');
+insert into categoria (descripcion) values ('HELADOS');
+insert into categoria (descripcion) values ('PRODUCTOS DE LIMPIEZA');
+insert into categoria (descripcion) values ('OTROS');
