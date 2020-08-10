@@ -50,23 +50,6 @@
                                         <input type="text" name="" id="txtdescripcion" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="txtcantidad">Cantidad:</label>
-                                        <input type="number" name="" id="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="ddlundmedida">Medida:</label>
-                                        <select class="form-control" id="ddlundmedida">
-                                            <option value='1'>UND</option>
-                                            <option value='2'>KL</option>
-                                            <option value='2'>MT</option>
-                                        </select>
-
-                                    </div>
-                                </div>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="ddlcategoria">Categoría:</label>
@@ -85,8 +68,19 @@
                                 </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <label for="txtpreciocosto">S/ Costo:</label>
-                                        <input type="number" name="" id="txtpreciocosto" class="form-control">
+                                        <label for="txtcantidad">Cantidad:</label>
+                                        <input type="number" name="" id="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2 col-lg-2">
+                                    <div class="form-group">
+                                        <label for="ddlundmedida">Medida:</label>
+                                        <select class="form-control" id="ddlundmedida">
+                                            <option value='1'>UND</option>
+                                            <option value='2'>KL</option>
+                                            <option value='2'>MT</option>
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2">
