@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.4.13-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         10.4.11-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
 -- HeidiSQL Versión:             11.0.0.5919
 -- --------------------------------------------------------
@@ -13,12 +13,10 @@
 
 
 -- Volcando estructura de base de datos para bd_dmstore
-DROP DATABASE IF EXISTS `bd_dmstore`;
 CREATE DATABASE IF NOT EXISTS `bd_dmstore` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `bd_dmstore`;
 
 -- Volcando estructura para tabla bd_dmstore.categoria
-DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
@@ -49,7 +47,6 @@ INSERT INTO `categoria` (`idcategoria`, `descripcion`) VALUES
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.clientes
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE IF NOT EXISTS `clientes` (
   `idcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nombres` varchar(250) DEFAULT NULL,
@@ -68,7 +65,6 @@ DELETE FROM `clientes`;
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.detalleventas
-DROP TABLE IF EXISTS `detalleventas`;
 CREATE TABLE IF NOT EXISTS `detalleventas` (
   `iddetalleventas` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) DEFAULT 0,
@@ -88,31 +84,29 @@ DELETE FROM `detalleventas`;
 /*!40000 ALTER TABLE `detalleventas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.productos
-DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `idproducto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
-  `icategoria` int(11) DEFAULT NULL,
+  `idcategoria` int(11) DEFAULT NULL,
   `preciocompra` decimal(10,2) DEFAULT NULL,
   `Stock` int(11) DEFAULT NULL,
   `idundmedida` int(11) DEFAULT NULL,
   `precioventa` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`idproducto`),
-  KEY `FK_Categoria_Productos` (`icategoria`),
   KEY `FK_Categoria_UndMedida` (`idundmedida`),
-  CONSTRAINT `FK_Categoria_Productos` FOREIGN KEY (`icategoria`) REFERENCES `categoria` (`idcategoria`),
+  KEY `FK_Categoria_Productos` (`idcategoria`) USING BTREE,
+  CONSTRAINT `FK_Categoria_Productos` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`),
   CONSTRAINT `FK_Categoria_UndMedida` FOREIGN KEY (`idundmedida`) REFERENCES `unidadmedida` (`idundmedida`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_dmstore.productos: ~1 rows (aproximadamente)
 DELETE FROM `productos`;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` (`idproducto`, `descripcion`, `icategoria`, `preciocompra`, `Stock`, `idundmedida`, `precioventa`) VALUES
-	(1, 'LECHE IDEAL CREMOSITA', 3, NULL, NULL, NULL, 3.30);
+INSERT INTO `productos` (`idproducto`, `descripcion`, `idcategoria`, `preciocompra`, `Stock`, `idundmedida`, `precioventa`) VALUES
+	(1, 'LECHE GLORIA', 3, 2.80, 24, 1, 3.30);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.servicios
-DROP TABLE IF EXISTS `servicios`;
 CREATE TABLE IF NOT EXISTS `servicios` (
   `idservicio` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
@@ -125,16 +119,20 @@ DELETE FROM `servicios`;
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.unidadmedida
-DROP TABLE IF EXISTS `unidadmedida`;
 CREATE TABLE IF NOT EXISTS `unidadmedida` (
   `idundmedida` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idundmedida`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bd_dmstore.unidadmedida: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bd_dmstore.unidadmedida: ~4 rows (aproximadamente)
 DELETE FROM `unidadmedida`;
 /*!40000 ALTER TABLE `unidadmedida` DISABLE KEYS */;
+INSERT INTO `unidadmedida` (`idundmedida`, `descripcion`) VALUES
+	(1, 'UND'),
+	(2, 'KG'),
+	(3, 'L'),
+	(4, 'M');
 /*!40000 ALTER TABLE `unidadmedida` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

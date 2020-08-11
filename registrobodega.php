@@ -3,7 +3,38 @@
 
 <head>
     <?php
+
     include_once("header.php");
+    include_once("utiles.php");
+    include_once('Cnx.php');
+    $rsCategorias = mysqli_query($Conex, "Select * from categoria;");
+    $rsmedidas = mysqli_query($Conex, "Select * from unidadmedida;");
+
+
+    if (isset($_POST["btnguardar"])) {
+        $descripcion = $_POST["txtdescripcion"];
+        $categoria = $_POST["ddlcategoria"];
+        $preciocompra = $_POST["txtpreciocompra"];
+        $cantidad = $_POST["txtcantidad"];
+        $undmedida = $_POST["ddlundmedida"];
+        $precioventa = $_POST["txtprecioventa"];
+
+        if (empty($descripcion) || empty($preciocompra) || empty($cantidad) || empty($precioventa)) {
+            echo MsgAlert("Debe completar todos los campos");
+        } else {
+            $Rs = mysqli_query($Conex, "Insert into productos (descripcion,idcategoria,preciocompra,Stock,idundmedida,precioventa) 
+        values ('$descripcion','$categoria','$preciocompra','$cantidad','$undmedida','$precioventa')");
+            $count = mysqli_affected_rows($Conex);
+
+            if ($count > 0) {
+                echo  MsgAlert("Registro existoso");
+            } else {
+                echo MsgAlert("No se pudo registrar");
+            }
+        }
+    }
+
+
     ?>
     <title>Diana Store</title>
 </head>
@@ -34,65 +65,71 @@
             </div>
         </div>
     </nav>
-    <section class="mt-2">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-12 col-lg-12 ">
-                    <div class="card shadow border-dark">
-                        <div class="card-header bg-dark text-white">
-                            <span style="font-weight: 700 !important; font-size:18px">Registro de producto.</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-8 col-lg-8">
-                                    <div class="form-group">
-                                        <label for="txtdescripcion">Producto:</label>
-                                        <input type="text" name="" id="txtdescripcion" class="form-control">
+    <form action="registrobodega.php" method="POST">
+        <section class="mt-2">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-12 col-lg-12 ">
+                        <div class="card shadow border-dark">
+                            <div class="card-header bg-dark text-white">
+                                <span style="font-weight: 700 !important; font-size:18px">Registro de producto.</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="txtdescripcion">Producto:</label>
+                                            <input type="text" name="txtdescripcion" id="txtdescripcion" class="form-control" autocomplete="off">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <label for="ddlcategoria">Categoría:</label>
-                                        <select class="form-control" id="ddlcategoria">
-                                            <option value='1'>Categoria 1</option>
-                                            <option value='2'>Categoria 2</option>
-                                            <option value='2'>Categoria 3</option>
-                                        </select>
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label for="ddlcategoria">Categoría:</label>
+                                            <select class="form-control" id="ddlcategoria" name="ddlcategoria">
+                                                <?php
+                                                while ($dataC = mysqli_fetch_assoc($rsCategorias)) {
+                                                    echo "<option value='" . $dataC["idcategoria"] . "'>" . $dataC["descripcion"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="txtpreciocompra">S/ Compra:</label>
-                                        <input type="number" name="" id="txtpreciocompra" class="form-control">
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="txtcantidad">Cantidad:</label>
+                                            <input type="number" name="txtcantidad" id="txtcantidad" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="txtcantidad">Cantidad:</label>
-                                        <input type="number" name="" id="" class="form-control">
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="txtpreciocompra">S/ Compra:</label>
+                                            <input type="number" name="txtpreciocompra" id="txtpreciocompra" class="form-control" step="0.01">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="ddlundmedida">Medida:</label>
-                                        <select class="form-control" id="ddlundmedida">
-                                            <option value='1'>UND</option>
-                                            <option value='2'>KL</option>
-                                            <option value='2'>MT</option>
-                                        </select>
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="txtprecioventa">S/ Venta:</label>
+                                            <input type="number" name="txtprecioventa" id="txtprecioventa" class="form-control" step="0.01">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="ddlundmedida">Medida:</label>
+                                            <select class="form-control" id="ddlundmedida" name="ddlundmedida">
+                                                <?php
+                                                while ($dataC = mysqli_fetch_assoc($rsmedidas)) {
+                                                    echo "<option value='" . $dataC["idundmedida"] . "'>" . $dataC["descripcion"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
-                                    <div class="form-group">
-                                        <label for="txtprecioventa">S/ Venta:</label>
-                                        <input type="number" name="" id="txtprecioventa" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div class="btn-group">
-                                        <input type="button" value="Guardar" class="btn btn-success ">
-                                        <input type="button" value="Cancelar" class="btn btn-danger">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="btn-group">
+                                            <input type="submit" value="Guardar" name="btnguardar" class="btn btn-success ">
+                                            <input type="button" value="Cancelar" class="btn btn-danger">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +137,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </form>
 </body>
 
 </html>

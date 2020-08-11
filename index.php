@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h2 class="text-white text-center mt-5"><strong>Menú de Servicios</strong></h2>
+    <h2 class="text-white text-center mt-5 text-shadow"><strong>Menú de Servicios</strong></h2>
     <section class="mt-4">
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -20,10 +20,10 @@
                                 <a href="bodega.php"><input type="button" value="Tienda" class="btn btn-lg btn-primary shadow p-3 mb-2" style="width: 100%;"></a>
                             </div>
                             <div class="form-group">
-                                <input type="button" value="Constructora" class="btn btn-lg btn-success shadow p-3 mb-2" style="width: 100%;" disabled>
+                                <input type="button" value="Constructora" class="btn btn-lg btn-success shadow p-3 mb-2" style="width: 100%;" >
                             </div>
                             <div class="form-group">
-                                <input type="button" value="Claro" class="btn btn-lg btn-danger shadow p-3 mb-2" style="width: 100%;" disabled>
+                                <input type="button" value="Claro" class="btn btn-lg btn-danger shadow p-3 mb-2" style="width: 100%;" >
                             </div>
                         </div>
                     </div>

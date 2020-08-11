@@ -15,5 +15,9 @@ label {
 }
 
 body {
-    background-color: #486EAB !important;
+    background-color: #426394 !important;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px #000000 !important;
 }
