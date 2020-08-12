@@ -29,16 +29,16 @@ DELETE FROM `categoria`;
 INSERT INTO `categoria` (`idcategoria`, `descripcion`) VALUES
 	(1, 'ABARROTES'),
 	(2, 'ENLATADOS'),
-	(3, 'LÁCTEOS'),
+	(3, 'LACTEOS'),
 	(4, 'SNACKS'),
-	(5, 'CONFITERÍA'),
+	(5, 'CONFITERIA'),
 	(6, 'HARINAS'),
 	(7, 'FRUTAS Y VERDURAS'),
 	(8, 'BEBIDAS'),
-	(9, 'BEBIDAS ALCOHÓLICAS'),
+	(9, 'BEBIDAS ALCOHOLICAS'),
 	(10, 'ALIMENTOS PREPARADOS'),
 	(11, 'CARNES'),
-	(12, 'AUTOMEDICACIÓN'),
+	(12, 'AUTOMEDICACION'),
 	(13, 'HIGIENE PERSONAL'),
 	(14, 'USO DOMESTICO'),
 	(15, 'HELADOS'),
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   CONSTRAINT `FK_Categoria_UndMedida` FOREIGN KEY (`idundmedida`) REFERENCES `unidadmedida` (`idundmedida`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bd_dmstore.productos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bd_dmstore.productos: ~0 rows (aproximadamente)
 DELETE FROM `productos`;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
 INSERT INTO `productos` (`idproducto`, `descripcion`, `idcategoria`, `preciocompra`, `Stock`, `idundmedida`, `precioventa`) VALUES
