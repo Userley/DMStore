@@ -72,14 +72,14 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                                 <select class="selectpicker form-control" data-live-search="true" id="ddlproducto">
                                     <?php
                                     while ($dataP = mysqli_fetch_assoc($rsProductos)) {
-                                        echo "<option value='" . $dataP["idcategoria"] . "'>" . $dataP["descripcion"] . "</option>";
+                                        echo "<option value='" . $dataP["idcategoria"] . "'>" . utf8_encode($dataP["descripcion"]) . "</option>";
                                     }
                                     ?>
                                 </select>
                                 <select class="form-control" id="ddlcategoria" hidden>
                                     <?php
                                     while ($dataC = mysqli_fetch_assoc($rsCategorias)) {
-                                        echo "<option value='" . $dataC["idcategoria"] . "'>" . $dataC["descripcion"] . "</option>";
+                                        echo "<option value='" . $dataC["idcategoria"] . "'>" . utf8_encode($dataC["descripcion"]) . "</option>";
                                     }
                                     ?>
                                 </select>

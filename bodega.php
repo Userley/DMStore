@@ -51,28 +51,40 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-12 col-md-8 col-lg-8">
+                                <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label for="txtproducto">Producto:</label>
                                         <select class="selectpicker form-control" data-live-search="true" id="txtproducto">
                                             <?php
                                             while ($dataP = mysqli_fetch_assoc($rsProductos)) {
-                                                echo "<option value='" . $dataP["idcategoria"] . "'>" . $dataP["descripcion"] . "</option>";
+                                                echo "<option value='" . $dataP["idproducto"] . "'>" . utf8_encode($dataP["descripcion"]) . "</option>";
                                             }
                                             ?>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="col-sm-12 col-md-1 col-lg-1">
                                     <div class="form-group">
-                                        <label for="txtcantidad">Cantidad:</label>
-                                        <input type="number" name="" min="1" id="txtcantidad" step="1" class="form-control">
+                                        <label for="txtstock">Stock:</label>
+                                        <input type="text" name="" id="txtstock" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2">
                                     <div class="form-group">
-                                        <label for="txtprecio">Precio:</label>
-                                        <input type="number" name="" id="txtprecio" class="form-control" step="1.00">
+                                        <label for="txtprecio">P. Compra:</label>
+                                        <input type="text" name="" id="txtprecioC" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2 col-lg-2">
+                                    <div class="form-group">
+                                        <label for="txtprecio">P. Venta:</label>
+                                        <input type="number" name="" id="txtprecioV" class="form-control" step="0.15">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-1 col-lg-1">
+                                    <div class="form-group">
+                                        <label for="txtcantidad">Cantidad:</label>
+                                        <input type="number" name="" id="txtcantidad" step="0.10" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -151,10 +163,53 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                     }
                 }
             });
-        });
 
-        $(function() {
 
+            $("#txtproducto").change(function(e) {
+                // if (e.which == 13) {
+                    var codpro = $("#txtproducto").val();
+                    $.ajax({
+                        // la URL para la petición
+                        url: 'consultas.php',
+
+                        // la información a enviar
+                        // (también es posible utilizar una cadena de datos)
+                        data: {
+                            id: 123
+                        },
+
+                        // especifica si será una petición POST o GET
+                        type: 'GET',
+
+                        // el tipo de información que se espera de respuesta
+                        dataType: 'json',
+                        data: {
+                            tipo: 'CP',
+                            codpro: codpro
+                        },
+
+                        // código a ejecutar si la petición es satisfactoria;
+                        // la respuesta es pasada como argumento a la función
+                        success: function(json) {
+                            $("#txtprecioC").val(json.preciocompra);
+                            $("#txtprecioV").val(json.precioventa);
+                            $("#txtstock").val(json.stock);
+                        },
+
+                        // código a ejecutar si la petición falla;
+                        // son pasados como argumentos a la función
+                        // el objeto de la petición en crudo y código de estatus de la petición
+                        error: function(xhr, status) {
+                            alert('Disculpe, existió un problema');
+                        },
+
+                        // código a ejecutar sin importar si la petición falló o no
+                        complete: function(xhr, status) {
+                            // alert('Petición realizada');
+                        }
+                    });
+                // }
+            });
         });
     </script>
 </body>

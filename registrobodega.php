@@ -88,7 +88,7 @@
                                             <select class="form-control" id="ddlcategoria" name="ddlcategoria">
                                                 <?php
                                                 while ($dataC = mysqli_fetch_assoc($rsCategorias)) {
-                                                    echo "<option value='" . $dataC["idcategoria"] . "'>" . $dataC["descripcion"] . "</option>";
+                                                    echo "<option value='" . $dataC["idcategoria"] . "'>" . utf8_encode($dataC["descripcion"]) . "</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -102,13 +102,13 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
-                                            <label for="txtpreciocompra">Pre. Costo:</label>
+                                            <label for="txtpreciocompra">Prec. Costo:</label>
                                             <input type="number" name="txtpreciocompra" id="txtpreciocompra" class="form-control" step="0.01">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
-                                            <label for="txtprecioventa">Precio Venta:</label>
+                                            <label for="txtprecioventa">Prec. Venta:</label>
                                             <input type="number" name="txtprecioventa" id="txtprecioventa" class="form-control" step="0.01">
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                             <select class="form-control" id="ddlundmedida" name="ddlundmedida">
                                                 <?php
                                                 while ($dataC = mysqli_fetch_assoc($rsmedidas)) {
-                                                    echo "<option value='" . $dataC["idundmedida"] . "'>" . $dataC["descripcion"] . "</option>";
+                                                    echo "<option value='" . $dataC["idundmedida"] . "'>" . utf8_encode($dataC["descripcion"]) . "</option>";
                                                 }
                                                 ?>
                                             </select>
