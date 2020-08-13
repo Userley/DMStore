@@ -102,13 +102,13 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
-                                            <label for="txtpreciocompra">S/ Compra:</label>
+                                            <label for="txtpreciocompra">Pre. Costo:</label>
                                             <input type="number" name="txtpreciocompra" id="txtpreciocompra" class="form-control" step="0.01">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3">
                                         <div class="form-group">
-                                            <label for="txtprecioventa">S/ Venta:</label>
+                                            <label for="txtprecioventa">Precio Venta:</label>
                                             <input type="number" name="txtprecioventa" id="txtprecioventa" class="form-control" step="0.01">
                                         </div>
                                     </div>
@@ -130,14 +130,6 @@
                                             <input type="submit" value="Guardar" name="btnguardar" class="btn btn-success ">
                                             <input type="button" value="Cancelar" class="btn btn-danger">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input form-check-input-danger" type="checkbox" id="gridCheck">
-                                        <label class="form-check-label" for="gridCheck">
-                                            Check me out
-                                        </label>
                                     </div>
                                 </div>
                             </div>
