@@ -13,12 +13,10 @@
 
 
 -- Volcando estructura de base de datos para bd_dmstore
-DROP DATABASE IF EXISTS `bd_dmstore`;
 CREATE DATABASE IF NOT EXISTS `bd_dmstore` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `bd_dmstore`;
 
 -- Volcando estructura para tabla bd_dmstore.categoria
-DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
@@ -49,7 +47,6 @@ INSERT INTO `categoria` (`idcategoria`, `descripcion`) VALUES
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.clientes
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE IF NOT EXISTS `clientes` (
   `idcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nombres` varchar(250) DEFAULT NULL,
@@ -68,7 +65,6 @@ DELETE FROM `clientes`;
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.detalleventas
-DROP TABLE IF EXISTS `detalleventas`;
 CREATE TABLE IF NOT EXISTS `detalleventas` (
   `iddetalleventas` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) DEFAULT 0,
@@ -88,7 +84,6 @@ DELETE FROM `detalleventas`;
 /*!40000 ALTER TABLE `detalleventas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.productos
-DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `idproducto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
@@ -146,11 +141,58 @@ INSERT INTO `productos` (`idproducto`, `descripcion`, `idcategoria`, `preciocomp
 	(36, 'PAPEL P.H. D. HOJA ELITE', 13, 1.60, 32, 1, 2.00),
 	(37, 'PAPEL TOALLA NOVA MEGA ROLLO X UNID. 19 MT', 1, 3.48, 3, 1, 4.00),
 	(38, 'SERVILLETAS NOBLE CORTADA 180 HOJAS', 1, 0.80, 15, 1, 1.00),
-	(39, 'PAPEL HIGIENICO X 4 UNID, ELITE', 1, 2.56, 27, 1, 3.50);
+	(39, 'PAPEL HIGIENICO X 4 UNID, ELITE', 1, 2.56, 27, 1, 3.50),
+	(40, 'PAPEL HIGIENICO PH. ELITE X 24 UNID. ', 13, 16.88, 1, 1, 17.50),
+	(41, 'TOALLA HIEGIENICA LADY SOFT NOCTURNA DOBLE ALA X 10 UNID', 1, 4.77, 4, 1, 5.50),
+	(42, 'T.H. NOSOTRAS NATURAL ALAS TELA GEL X10 UNID.', 13, 3.31, 12, 1, 3.80),
+	(43, 'T.H. NOSOTRAS NATURAL ALAS TELA GEL X42UNID.', 1, 12.74, 1, 1, 14.70),
+	(44, 'T.H. NOSOTRAS INVISIBLE RAPIGEL X 10 UNID. ', 13, 3.12, 28, 1, 3.80),
+	(45, 'PROTECTORES DIARIOSNOSOTRAS DESODORANTE X 15 UNID.', 13, 2.55, 12, 1, 2.90),
+	(46, 'TIRA PROTECTORES DIARIOS NOSOTRAS DESODORANTE  X 6 UNID ', 1, 0.98, 10, 1, 1.20),
+	(47, 'ESPONJA SCOTCH BRITE 2 EN 1 X 7 UNID. ', 14, 2.72, 7, 1, 3.20),
+	(48, 'ESPONJA ESCOTCH BRITE VERDE X18 UNID', 14, 1.09, 18, 1, 1.30),
+	(49, 'ESPONJA ESCOTCH BRITE LA MAQUINA X 13 UNID.', 14, 1.28, 13, 1, 1.50),
+	(50, 'DETERGENTE DE PATITO LIMON X 140GR.', 1, 0.78, 60, 1, 1.20),
+	(51, 'TIRA DE SUAVITEL FRESCA PRIMAVERA  80 ML', 14, 0.88, 12, 1, 1.00),
+	(52, 'TIRA DE SUAVITEL LAVANDA  X 12 UNID. 80 ML', 14, 0.88, 12, 1, 1.00),
+	(53, 'DPK SUAVITEL FRESCA PRIAMVERA X 200ML', 14, 1.60, 16, 1, 2.50),
+	(54, 'DPK SUAVITEL LAVANDA X 180ML', 14, 2.10, 12, 1, 2.50),
+	(55, 'PACK TALLARIN INST. AJINOMEN ROJO ', 1, 1.10, 12, 1, 1.30),
+	(56, 'JABON PROTEX AVENA ', 13, 2.55, 4, 1, 2.90),
+	(57, 'JABON PROTEX LIMPIEZA PROFUNDA ', 13, 2.55, 4, 1, 2.90),
+	(58, 'JABON  PROTEX FRESH ', 13, 2.55, 4, 1, 2.90),
+	(59, 'JABON PALMOLIVE ALOE Y OLIVA ', 13, 2.44, 4, 1, 2.80),
+	(60, 'JABON PALMOLIVE GRANADA ', 13, 2.44, 4, 1, 2.80),
+	(61, 'JABON PALMOLIVE AVENA Y AZUCAR ', 13, 2.44, 4, 1, 2.80),
+	(62, 'TRATAMIENTO NUTRIBELLA REPARACION 27 GR', 13, 1.20, 12, 1, 1.50),
+	(63, 'MEZCLA AJINOMIX APANADO 96 GR', 1, 1.35, 15, 1, 1.60),
+	(64, 'MEZCLA AJINOMIX CROCANTE ', 1, 1.40, 15, 1, 1.60),
+	(65, 'MEZCLA AJINOMIX PICANTE 80 GR', 1, 1.40, 15, 1, 1.60),
+	(66, 'DOÑA GUSTA COSTILLA DE RES ', 1, 0.15, 40, 1, 0.20),
+	(67, 'DOÑA GUSTA DE PESCADOS Y MARISCOS', 1, 0.15, 40, 1, 0.20),
+	(68, 'DOÑA GUSTA DE CARNE ', 1, 0.15, 40, 1, 0.20),
+	(69, 'LAVAVAJILLA ENPOTE  1K', 14, 5.00, 6, 1, 5.50),
+	(70, 'AYUDIN LIQUIDO 300ML CON ESPONJA', 14, 4.30, 12, 1, 5.00),
+	(71, 'PRESTOBARBA TRIPLE HOJA GILLETE', 13, 2.90, 10, 1, 3.50),
+	(72, 'JABON BOLIVAR ', 1, 1.80, 12, 1, 2.50),
+	(73, 'JABON TROME ', 14, 0.90, 12, 1, 1.20),
+	(74, 'LEJIA SAPOLIO 670ML', 1, 1.80, 12, 1, 2.20),
+	(75, 'AYUDIN DE 1 LITRO', 14, 10.30, 3, 1, 13.50),
+	(76, 'JABON MARSELLA ', 14, 1.54, 12, 1, 2.50),
+	(77, 'TIRA DE PANTENE', 13, 0.80, 12, 1, 1.20),
+	(78, 'PAQUETE DE ACITE CIL DE CUARTO 200 ML', 1, 1.30, 12, 1, 1.50),
+	(79, 'TIRA DE H Y S 18 ML', 13, 0.90, 10, 1, 1.50),
+	(80, 'TIRA DE SEDAL', 1, 1.20, 10, 1, 1.50),
+	(81, '1 DOC DE DOWNI ', 14, 0.80, 12, 1, 1.20),
+	(82, 'POMAROLA SALSA DE TOMATE 160GR', 1, 6.25, 12, 1, 6.50),
+	(83, 'MERMELADA FANNY FRESA DELI ', 1, 0.90, 12, 1, 1.20),
+	(84, 'MERMELADA FANNY100GR', 1, 1.20, 12, 1, 1.50),
+	(85, 'CAFE ALTOMAYO 16 GR', 1, 1.94, 9, 1, 2.00),
+	(86, 'AVENA 3 OSITOS CANELA Y CLAVO ', 1, 0.90, 24, 1, 1.20),
+	(87, 'CAFE ALTOMAYO 8 GR ', 1, 0.99, 18, 1, 1.50);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.servicios
-DROP TABLE IF EXISTS `servicios`;
 CREATE TABLE IF NOT EXISTS `servicios` (
   `idservicio` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
@@ -163,7 +205,6 @@ DELETE FROM `servicios`;
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.unidadmedida
-DROP TABLE IF EXISTS `unidadmedida`;
 CREATE TABLE IF NOT EXISTS `unidadmedida` (
   `idundmedida` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(50) DEFAULT NULL,
