@@ -75,13 +75,13 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                                         <input type="text" name="" id="txtunidad" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-1">
+                                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-1">
                                     <div class="form-group">
                                         <label for="txtprecio">P. Comp.:</label>
                                         <input type="text" name="" id="txtprecioC" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-1">
+                                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-1">
                                     <div class="form-group">
                                         <label for="txtprecio">P. Venta:</label>
                                         <input type="number" name="" id="txtprecioV" class="form-control" step="0.15">
@@ -221,7 +221,7 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                             alert("La cantidad no puede ser mayor al Stock actual");
                             $("#txtcantidad").focus();
                         } else {
-                            $('#tabla').append('<tr id="C' + codigo + '"><td class="text-center" id="cod"><button id="P' + codigo + '" value="' + codigo + '" onclick="removeRegistro(this);" style="background-color:red !important; border:0 px;" class="btn btn-sm text-white btnow">X</button></td><td>' + nombre + '</td><td id="pcompra" style="display:none">' + pcompra + '</td><td id="pventa">' + pventa + '</td><td id="cant">' + cantidad + '</td><td id="subtotal">' + Total.toFixed(2) + '</td></tr>');
+                            $('#tabla').append('<tr id="C' + codigo + '"><td class="text-center" id="cod"><button id="P' + codigo + '" value="' + codigo + '" onclick="removeRegistro(this);" style="background-color:red !important; border:0 px;" class="btn btn-sm text-white btnow">X</button></td><td class="text-center" >' + nombre + '</td><td id="pcompra" style="display:none" class="text-center" >' + pcompra + '</td><td id="pventa" class="text-center" >' + pventa + '</td><td id="cant" class="text-center" >' + cantidad + '</td><td id="subtotal" class="text-center" >' + Total.toFixed(2) + '</td></tr>');
                             $("#txtcantidad").val("");
                             SumarSubtotales();
                         }
