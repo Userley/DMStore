@@ -27,7 +27,7 @@
 
 <?php
 mb_internal_encoding('UTF-8');
-
+header("Content-Type: text/html;charset=utf-8");
 // Esto le dice a PHP que generaremos cadenas UTF-8
 mb_http_output('UTF-8');
 ?>

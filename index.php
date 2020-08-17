@@ -20,10 +20,10 @@
                                 <a href="bodega.php"><input type="button" value="Tienda" class="btn btn-lg btn-primary shadow p-3 mb-2" style="width: 100%;"></a>
                             </div>
                             <div class="form-group">
-                                <input type="button" value="Constructora" class="btn btn-lg btn-success shadow p-3 mb-2" style="width: 100%;" >
+                                <input type="button" value="Constructora" class="btn btn-lg btn-success shadow p-3 mb-2" style="width: 100%;">
                             </div>
                             <div class="form-group">
-                                <input type="button" value="Claro" class="btn btn-lg btn-danger shadow p-3 mb-2" style="width: 100%;" >
+                                <input type="button" value="Claro" class="btn btn-lg btn-danger shadow p-3 mb-2" style="width: 100%;">
                             </div>
                         </div>
                     </div>

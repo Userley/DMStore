@@ -51,47 +51,56 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7">
                                     <div class="form-group">
                                         <label for="txtproducto">Producto:</label>
                                         <select class="selectpicker form-control" data-live-search="true" id="txtproducto">
                                             <?php
                                             while ($dataP = mysqli_fetch_assoc($rsProductos)) {
-                                                echo "<option value='" . $dataP["idproducto"] . "'>" . utf8_encode($dataP["descripcion"]) . "</option>";
+                                                echo "<option value='" . $dataP["idproducto"] . "'>" . $dataP["descripcion"] . "</option>";
                                             }
                                             ?>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 col-lg-1">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-1">
                                     <div class="form-group">
                                         <label for="txtstock">Stock:</label>
                                         <input type="text" name="" id="txtstock" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-1">
                                     <div class="form-group">
-                                        <label for="txtprecio">P. Compra:</label>
+                                        <label for="txtunidad">Und. Med:</label>
+                                        <input type="text" name="" id="txtunidad" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-1">
+                                    <div class="form-group">
+                                        <label for="txtprecio">P. Comp.:</label>
                                         <input type="text" name="" id="txtprecioC" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-1">
                                     <div class="form-group">
                                         <label for="txtprecio">P. Venta:</label>
                                         <input type="number" name="" id="txtprecioV" class="form-control" step="0.15">
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 col-lg-1">
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-1">
                                     <div class="form-group">
                                         <label for="txtcantidad">Cantidad:</label>
                                         <input type="number" name="" id="txtcantidad" step="0.10" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div class="btn-group text-center">
-                                        <input type="button" value="Guardar" class="btn btn-success ">
-                                        <input type="button" value="Limpiar" class="btn btn-danger">
+                                    <div class="btn-inline text-center">
+                                        <input type="button" value=" ✚ Agregar producto" id="agregar" class="btn btn-success mr-3">
+                                        <!-- <input type="button" value="Limpiar" class="btn btn-danger mr-3"> -->
+                                        <input type="button" value="✓ Guardar Compra" id="guardar" class="btn btn-danger">
                                     </div>
+                                    <hr>
+
                                 </div>
                             </div>
                         </div>
@@ -99,41 +108,30 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                     </div>
                 </div>
             </div>
+
             <div class="card mt-3 mb-3 shadow border-dark">
                 <div class="card-body">
-                    <table id="example" class="table table-striped  table-bordered dt-responsive nowrap" style="width: 100%;">
+                    <div class="group-control-inline">
+                        <label for="TotalVentas">Total Compra:</label>
+                        <input type="text" name="" id="TotalVentas" class="form-control" style="width: 30%;float:right;" value="" readonly>
+                    </div>
+                    <br>
+                    <table class="table table-striped  table-bordered dt-responsive nowrap" style="width: 100%; font-size: 14px !important;" id="tabla">
                         <thead>
                             <tr>
-                                <th>Producto</th>
-                                <th>S/ Total</th>
-                                <th>Precio Venta</th>
-                                <th>Cantidad</th>
-                                <th>Fecha</th>
-                                <th>Stock</th>
-
+                                <th class="text-center">Item</th>
+                                <th class="text-center">Nombre</th>
+                                <th style="display: none;">Compra</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>LECHE IDEAL CREMOSITA</td>
-                                <td>6.60</td>
-                                <td>3.30</td>
-                                <td>2</td>
-                                <td>21/03/2000</td>
-                                <td>4</td>
 
-                            </tr>
-                            <tr>
-                                <td>AZUCAR</td>
-                                <td>4.2</td>
-                                <td>2.8</td>
-                                <td>1.5</td>
-                                <td>24/03/2000</td>
-                                <td>6</td>
-
-                            </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -141,76 +139,229 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
     <script>
         $(document).ready(function() {
             $('.selectpicker').selectpicker();
-            $('#example').DataTable({
-                "language": {
-                    "decimal": "",
-                    "emptyTable": "No hay datos válidos en la tabla",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-                    "infoFiltered": "(filtrado de _MAX_ registros)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ registros",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "No existen registros.",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Anterior",
-                        "next": "Siguiente",
-                        "previous": "Último"
-                    }
+            // $('#tabla').DataTable({
+            //     "language": {
+            //         "decimal": "",
+            //         "emptyTable": "No hay datos válidos en la tabla",
+            //         "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            //         "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            //         "infoFiltered": "(filtrado de _MAX_ registros)",
+            //         "infoPostFix": "",
+            //         "thousands": ",",
+            //         "lengthMenu": "Mostrar _MENU_ registros",
+            //         "loadingRecords": "Cargando...",
+            //         "processing": "Procesando...",
+            //         "search": "Buscar:",
+            //         "zeroRecords": "No existen registros.",
+            //         "paginate": {
+            //             "first": "Primero",
+            //             "last": "Anterior",
+            //             "next": "Siguiente",
+            //             "previous": "Último"
+            //         }
+            //     }
+            // });
+
+
+
+            buscardatosproducto();
+
+
+        });
+
+        function SumarSubtotales() {
+
+            var VentasTotal = 0;
+            $("#tabla").find("td[id='subtotal']").each(function() {
+                var subt = $(this).text();
+                if (subt != "") {
+                    VentasTotal = parseFloat(VentasTotal) + parseFloat(subt);
                 }
             });
+            $("#TotalVentas").val("S/. " + VentasTotal.toFixed(2));
+        }
 
+        function removeRegistro(control) {
+            var idcontrol = $("#" + control.id).val();
+            $("#tabla").find("[id='C" + idcontrol + "']").remove();
+            $("#txtcantidad").val("");
+            $("#txtcantidad").focus();
+            SumarSubtotales();
+        }
 
-            $("#txtproducto").change(function(e) {
-                // if (e.which == 13) {
-                    var codpro = $("#txtproducto").val();
-                    $.ajax({
-                        // la URL para la petición
-                        url: 'consultas.php',
-
-                        // la información a enviar
-                        // (también es posible utilizar una cadena de datos)
-                        data: {
-                            id: 123
-                        },
-
-                        // especifica si será una petición POST o GET
-                        type: 'GET',
-
-                        // el tipo de información que se espera de respuesta
-                        dataType: 'json',
-                        data: {
-                            tipo: 'CP',
-                            codpro: codpro
-                        },
-
-                        // código a ejecutar si la petición es satisfactoria;
-                        // la respuesta es pasada como argumento a la función
-                        success: function(json) {
-                            $("#txtprecioC").val(json.preciocompra);
-                            $("#txtprecioV").val(json.precioventa);
-                            $("#txtstock").val(json.stock);
-                        },
-
-                        // código a ejecutar si la petición falla;
-                        // son pasados como argumentos a la función
-                        // el objeto de la petición en crudo y código de estatus de la petición
-                        error: function(xhr, status) {
-                            alert('Disculpe, existió un problema');
-                        },
-
-                        // código a ejecutar sin importar si la petición falló o no
-                        complete: function(xhr, status) {
-                            // alert('Petición realizada');
-                        }
-                    });
-                // }
-            });
+        $("#txtproducto").change(function(e) {
+            buscardatosproducto();
         });
+
+
+        $('#agregar').click(function() {
+
+            var codigo = $("#txtproducto").val();
+            var nombre = $("#txtproducto option:selected").text();
+            var pcompra = $("#txtprecioC").val();
+            var pventa = $("#txtprecioV").val();
+            var stock = $("#txtstock").val();
+            var cantidad = $("#txtcantidad").val();
+            var Total = cantidad * $('#txtprecioV').val();
+
+            var fila = $("#tabla").find("[id='C" + codigo + "']").text();
+            if (fila == "") {
+                if (cantidad != "") {
+                    if (parseFloat(cantidad) > parseFloat(stock)) {
+                        alert("La cantidad no puede ser mayor al Stock actual");
+                        $("#txtcantidad").focus();
+                    } else {
+                        $('#tabla').append('<tr id="C' + codigo + '"><td class="text-center" id="cod"><button id="P' + codigo + '" value="' + codigo + '" onclick="removeRegistro(this);" style="background-color:red !important; border:0 px;" class="btn btn-sm text-white btnow">X</button></td><td>' + nombre + '</td><td id="pcompra" style="display:none">' + pcompra + '</td><td id="pventa">' + pventa + '</td><td id="cant">' + cantidad + '</td><td id="subtotal">' + Total.toFixed(2) + '</td></tr>');
+                        $("#txtcantidad").val("");
+                        SumarSubtotales();
+                    }
+                } else {
+                    alert("Falta detallar la cantidad");
+                    $("#txtcantidad").focus();
+                }
+            } else {
+                alert("El registro ya existe");
+            }
+
+        });
+
+        $('#guardar').click(function() {
+            var totalcodigospro = "";
+            var totalcompvpro = "";
+            var totalprevpro = "";
+            var totalcantpro = "";
+            var totalsubtotalpro = "";
+
+
+            $("#tabla").find("[class='btn btn-sm text-white btnow']").each(function() {
+                var codrowpro = $(this).val();
+                totalcodigospro += codrowpro + "-";
+            });
+            $("#tabla").find("[id='pcompra']").each(function() {
+                var cantpcomprarowpro = $(this).text();
+                totalcompvpro += cantpcomprarowpro + "-";
+            });
+
+
+            $("#tabla").find("[id='pventa']").each(function() {
+                var cantpventarowpro = $(this).text();
+                totalprevpro += cantpventarowpro + "-";
+            });
+
+            $("#tabla").find("[id='cant']").each(function() {
+                var cantrowpro = $(this).text();
+                totalcantpro += cantrowpro + "-";
+            });
+
+
+            $("#tabla").find("[id='subtotal']").each(function() {
+                var subtotalrowpro = $(this).text();
+                totalsubtotalpro += subtotalrowpro + "-";
+            });
+
+            var TotalVentas = $("#TotalVentas").val().replace('S/. ', '');
+            RegistrarVentas(totalcodigospro, totalcompvpro, totalprevpro, totalcantpro, totalsubtotalpro, TotalVentas);
+
+        });
+
+        function RegistrarVentas(codproducto, preciocompra, precioventa, cantidad, subtotal, total) {
+
+            var f = new Date();
+            var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
+
+            $.ajax({
+                // la URL para la petición
+                url: 'consultas.php',
+
+                // especifica si será una petición POST o GET
+                type: 'GET',
+
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: {
+                    tipo: 'RP',
+                    codpro: codproducto,
+                    precioc: preciocompra,
+                    preciov: precioventa,
+                    cantidad: cantidad,
+                    subtotal: subtotal,
+                    total: total,
+                    fecha: fecha
+                },
+
+                // el tipo de información que se espera de respuesta
+                dataType: 'text',
+
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function(json) {
+
+                    if (json.estado === "True") {
+                        alert("¡Registro exitoso!");
+                    } else {
+                        alert("Error de registro.");
+                    }
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function(xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+
+                // código a ejecutar sin importar si la petición falló o no
+                complete: function(xhr, status) {
+                    // alert('Petición realizada');
+                }
+            });
+            // }
+
+        }
+
+        function buscardatosproducto() {
+            var codpro = $("#txtproducto").val();
+            $.ajax({
+                // la URL para la petición
+                url: 'consultas.php',
+
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: {
+                    tipo: 'CP',
+                    codpro: codpro
+                },
+                // especifica si será una petición POST o GET
+                type: 'GET',
+
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function(json) {
+                    $("#txtprecioC").val(json.preciocompra);
+                    $("#txtprecioV").val(json.precioventa);
+                    $("#txtstock").val(json.stock);
+                    $("#txtunidad").val(json.unidad);
+                    $("#txtcantidad").focus();
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function(xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+
+                // código a ejecutar sin importar si la petición falló o no
+                complete: function(xhr, status) {
+                    // alert('Petición realizada');
+                }
+            });
+            // }
+
+        }
     </script>
 </body>
 
