@@ -163,7 +163,7 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
             // });
 
 
-
+            $("#guardar").attr('Disabled', true);
             buscardatosproducto();
 
 
@@ -176,8 +176,13 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                 var subt = $(this).text();
                 if (subt != "") {
                     VentasTotal = parseFloat(VentasTotal) + parseFloat(subt);
+                    $("#guardar").attr('Disabled', false);
                 }
             });
+            if (parseFloat(VentasTotal) <= 0) {
+                $("#guardar").attr('Disabled', true);
+            }
+
             $("#TotalVentas").val("S/. " + VentasTotal.toFixed(2));
         }
 
@@ -187,6 +192,7 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
             $("#txtcantidad").val("");
             $("#txtcantidad").focus();
             SumarSubtotales();
+
         }
 
         $("#txtproducto").change(function(e) {
@@ -207,13 +213,18 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
             var fila = $("#tabla").find("[id='C" + codigo + "']").text();
             if (fila == "") {
                 if (cantidad != "") {
-                    if (parseFloat(cantidad) > parseFloat(stock)) {
-                        alert("La cantidad no puede ser mayor al Stock actual");
+                    if (parseFloat(cantidad) <= 0) {
+                        alert("La cantidad no puede ser 0");
                         $("#txtcantidad").focus();
                     } else {
-                        $('#tabla').append('<tr id="C' + codigo + '"><td class="text-center" id="cod"><button id="P' + codigo + '" value="' + codigo + '" onclick="removeRegistro(this);" style="background-color:red !important; border:0 px;" class="btn btn-sm text-white btnow">X</button></td><td>' + nombre + '</td><td id="pcompra" style="display:none">' + pcompra + '</td><td id="pventa">' + pventa + '</td><td id="cant">' + cantidad + '</td><td id="subtotal">' + Total.toFixed(2) + '</td></tr>');
-                        $("#txtcantidad").val("");
-                        SumarSubtotales();
+                        if (parseFloat(cantidad) > parseFloat(stock)) {
+                            alert("La cantidad no puede ser mayor al Stock actual");
+                            $("#txtcantidad").focus();
+                        } else {
+                            $('#tabla').append('<tr id="C' + codigo + '"><td class="text-center" id="cod"><button id="P' + codigo + '" value="' + codigo + '" onclick="removeRegistro(this);" style="background-color:red !important; border:0 px;" class="btn btn-sm text-white btnow">X</button></td><td>' + nombre + '</td><td id="pcompra" style="display:none">' + pcompra + '</td><td id="pventa">' + pventa + '</td><td id="cant">' + cantidad + '</td><td id="subtotal">' + Total.toFixed(2) + '</td></tr>');
+                            $("#txtcantidad").val("");
+                            SumarSubtotales();
+                        }
                     }
                 } else {
                     alert("Falta detallar la cantidad");
@@ -296,8 +307,10 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                 // la respuesta es pasada como argumento a la función
                 success: function(json) {
 
-                    if (json.estado === "True") {
+                    var rspta = JSON.parse(json);
+                    if (rspta.estado == "OK") {
                         alert("¡Registro exitoso!");
+                        location.reload();
                     } else {
                         alert("Error de registro.");
                     }
@@ -344,6 +357,7 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
                     $("#txtprecioV").val(json.precioventa);
                     $("#txtstock").val(json.stock);
                     $("#txtunidad").val(json.unidad);
+                    $("#txtcantidad").val("");
                     $("#txtcantidad").focus();
                 },
 

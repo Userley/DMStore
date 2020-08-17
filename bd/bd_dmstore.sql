@@ -207,11 +207,13 @@ CREATE TABLE IF NOT EXISTS `servicios` (
   `idservicio` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idservicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bd_dmstore.servicios: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bd_dmstore.servicios: ~1 rows (aproximadamente)
 DELETE FROM `servicios`;
 /*!40000 ALTER TABLE `servicios` DISABLE KEYS */;
+INSERT INTO `servicios` (`idservicio`, `descripcion`) VALUES
+	(1, 'Bodega');
 /*!40000 ALTER TABLE `servicios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bd_dmstore.unidadmedida
@@ -239,14 +241,11 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `fecha` datetime DEFAULT NULL,
   `totalventa` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bd_dmstore.ventas: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bd_dmstore.ventas: ~0 rows (aproximadamente)
 DELETE FROM `ventas`;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` (`idventa`, `fecha`, `totalventa`) VALUES
-	(2, '2020-08-14 00:00:00', 22.50),
-	(3, '2020-08-14 00:00:00', 31.50);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

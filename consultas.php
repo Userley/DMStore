@@ -33,20 +33,22 @@ if ($tipo == "RP") {
     $fecha = $_GET['fecha'];
     $rsventa = mysqli_query($Conex, "INSERT INTO ventas (fecha,totalventa) VALUES('$fecha','$total');");
     $id = $Conex->insert_id;
-    $filas = mysqli_affected_rows($rsventa);
-    if ($filas > 0) {
+    $filas = mysqli_affected_rows($Conex);
+    if ($filas) {
         $datacodpro = explode("-", rtrim($codPro, "-"));
         $dataprecioc = explode("-", rtrim($precioc, "-"));
         $datapreciov = explode("-", rtrim($preciov, "-"));
         $datacantidad = explode("-", rtrim($cantidad, "-"));
-        $datasubtotal = explode("-", rtrim($codPsubtotalro, "-"));
+        $datasubtotal = explode("-", rtrim($subtotal, "-"));
 
         for ($i = 0; $i < count($datacodpro); $i++) {
             $rsdetalleventas = mysqli_query($Conex, "INSERT INTO detalleventas (idventas,idproducto,preciocompra,precioventa,cantidad,fechaventa,idservicio) VALUES ('$id','$datacodpro[$i]','$dataprecioc[$i]','$datapreciov[$i]','$datacantidad[$i]','$fecha','1');");
+            $rsactualizar = mysqli_query($Conex, "UPDATE productos set Stock= Stock - " . $datacantidad[$i] . " WHERE idproducto='" . $datacodpro[$i] . "';");
         }
-        $filasdetalle = mysqli_affected_rows($rsdetalleventas);
-        if ($filasdetalle > 0) {
-            $data["estado"] = "True";
+        $filasdetalle = mysqli_affected_rows($Conex);
+
+        if ($filasdetalle) {
+            $data["estado"] = "OK";
         } else {
             $data["estado"] = "False";
         }
