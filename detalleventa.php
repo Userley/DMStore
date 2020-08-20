@@ -7,13 +7,10 @@
     include_once("header.php");
     include_once("utiles.php");
     include_once('Cnx.php');
-    $rsCategorias = mysqli_query($Conex, "Select * from categoria;");
-    $rsmedidas = mysqli_query($Conex, "Select * from unidadmedida;");
 
     $id = $_GET["id"];
 
-    $lstpro = mysqli_query($Conex, "select * from productos where idproducto='" . $id . "'");
-    $dtopro = mysqli_fetch_assoc($lstpro);
+    $rsdetalleventa = mysqli_query($Conex, "Select * from categoria;");
 
     ?>
     <title>Diana Store</title>
@@ -30,10 +27,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="bodega.php">Registro de ventas<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active ">
                     <a class="nav-link" href="busquedabodega.php">Consulta de ventas</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="registrobodega.php">Registro de producto</a>
                 </li>
             </ul>
@@ -48,8 +45,8 @@
     <section class="mt-2">
         <div class="container-fluid">
             <div class="row justify-content-center">
+                <form action="registrobodega.php" method="POST">
                 <div class="col-sm-12 col-md-10 col-lg-10 ">
-                    <form action="registrobodega.php" method="POST">
                         <div class="card shadow border-dark">
                             <div class="card-header bg-dark text-white">
                                 <span style="font-weight: 700 !important; font-size:18px">Edición de producto.</span>
@@ -116,15 +113,15 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="btn-group">
                                             <input type="submit" value="Guardar" name="btnguardar" class="btn btn-success ">
-                                            <a href="registrobodega.php"> <input type="button" value="Volver" class="btn btn-danger"></a>
+                                            <a href="busquedabodega.php"> <input type="button" value="Volver" class="btn btn-danger"></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-
-                </div>
+                        
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -132,9 +129,85 @@
     <script>
         $(document).ready(function() {
             // $('.selectpicker').selectpicker();
+            $('#example').DataTable();
 
 
+            $('#txtfecha1').val(today);
+            $('#txtfecha2').val(today);
+
+            $('#example').DataTable({
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No hay datos válidos en la tabla",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                    "infoFiltered": "(filtrado de _MAX_ registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "No existen registros.",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Anterior",
+                        "next": "Siguiente",
+                        "previous": "Último"
+                    }
+                }
+            });
         });
+
+
+        function GetDataVentas() {
+var codventa =$('').val();
+
+
+            $.ajax({
+                // la URL para la petición
+                url: 'consultas.php',
+
+                // especifica si será una petición POST o GET
+                type: 'GET',
+
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: {
+                    tipo: 'CV',
+                    codventa: codventa,
+                },
+
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function(json) {
+
+                    var rspta = JSON.parse(json);
+
+                    if (rspta.estado == "OK") {
+                        alert("¡Registro exitoso!");
+                        location.reload();
+                    } else {
+                        alert("Error de registro.");
+                    }
+                },
+
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function(xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+
+                // código a ejecutar sin importar si la petición falló o no
+                complete: function(xhr, status) {
+                    // alert('Petición realizada');
+                }
+            });
+        }
     </script>
 </body>
 

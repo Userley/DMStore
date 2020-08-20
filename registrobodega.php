@@ -153,7 +153,7 @@
                                 <tbody>
                                     <?php
                                     while ($datosPro = mysqli_fetch_assoc($rsLstProducto)) {
-                                        echo "<tr><td class='text-center'><a href='editarpro.php?id=" . $datosPro['idproducto'] . "'><button class='btn'>✎</button></a></td><td>" . $datosPro['descripcion'] . "</td><td class='text-center'>" . $datosPro['categor'] . "</td><td class='text-center'>S/ " . $datosPro['preciocompra'] . "</td><td class='text-center'>S/ " . $datosPro['precioventa'] . "</td><td class='text-center'>" . $datosPro['Stock'] . " " . $datosPro['unidad'] . "</td></tr>";
+                                        echo "<tr><td class='text-center'><a href='editarpro.php?id=" . $datosPro['idproducto'] . "'><button class='btn btn-md btn-primary'>Editar</button></a></td><td>" . $datosPro['descripcion'] . "</td><td class='text-center'>" . $datosPro['categor'] . "</td><td class='text-center'>S/ " . $datosPro['preciocompra'] . "</td><td class='text-center'>S/ " . $datosPro['precioventa'] . "</td><td class='text-center'>" . $datosPro['Stock'] . " " . $datosPro['unidad'] . "</td></tr>";
                                     }
                                     ?>
                                 </tbody>

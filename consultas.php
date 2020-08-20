@@ -59,7 +59,37 @@ if ($tipo == "RP") {
 //REGISTRO DE VENTAS
 
 if ($tipo == "RV") {
-    # code...
+    echo "";
 }
+
+
+//CONSULTAR VENTAS
+
+if ($tipo == "CV") {
+    $fecha1 = $_GET['fecha1'];
+    $fecha2 = $_GET['fecha2'];
+
+    $codigov = "";
+    $fechav = "";
+    $horav = "";
+    $totalv = "";
+
+
+    $rsdetventa = mysqli_query($Conex, "SELECT v.idventa,DATE_FORMAT(v.fecha, '%d-%m-%Y') AS fecha,DATE_FORMAT(v.fecha, '%H:%i:%s') AS hora ,totalventa 
+FROM ventas v WHERE DATE_FORMAT(fecha, '%Y-%m-%d')  BETWEEN '$fecha1' AND '$fecha2' ORDER BY fecha DESC ;");
+
+    $lstventasdetalle = array();
+
+    while ($datos = mysqli_fetch_assoc($rsdetventa)) {
+        $codigov = $datos["idventa"];
+        $fechav = $datos["fecha"];
+        $horav = $datos["hora"];
+        $totalv = $datos["totalventa"];
+
+        $data[] = array('codigo' => $codigov, 'fecha' => $fechav, 'hora' => $horav, 'total' => $totalv);
+    }
+}
+$cnClose = mysqli_close($Conex);
+
 
 echo json_encode($data);
