@@ -10,8 +10,11 @@
 
     $id = $_GET["id"];
 
-    $rsdetalleventa = mysqli_query($Conex, "Select * from categoria;");
-
+    $rsdetalleventa = mysqli_query($Conex, "SELECT p.descripcion, d.precioventa, d.cantidad,ROUND((d.precioventa * d.cantidad),2) AS Total, p.stock, d.fechaventa 
+    FROM productos p
+    INNER JOIN detalleventas d ON d.idproducto = p.idproducto
+    WHERE d.idventas='$id';");
+    $filas = mysqli_num_rows($rsdetalleventa);
     ?>
     <title>Diana Store</title>
 </head>
@@ -45,83 +48,62 @@
     <section class="mt-2">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <form action="registrobodega.php" method="POST">
-                <div class="col-sm-12 col-md-10 col-lg-10 ">
-                        <div class="card shadow border-dark">
-                            <div class="card-header bg-dark text-white">
-                                <span style="font-weight: 700 !important; font-size:18px">Edición de producto.</span>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="txtdescripcion">Producto:</label>
-                                            <input type="text" name="txtdescripcion" value='<?php echo $dtopro['descripcion'] ?>' id="txtdescripcion" class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="ddlcategoria">Categoría:</label>
-                                            <select class="form-control" id="ddlcategoria" name="ddlcategoria">
-                                                <?php
-                                                while ($dataC = mysqli_fetch_assoc($rsCategorias)) {
-                                                    if ($dataC['idcategoria'] == $dtopro['idcategoria']) {
-                                                        # code...
-                                                        echo "<option value='" . $dataC["idcategoria"] . "' selected='selected'>" . utf8_encode($dataC["descripcion"]) . "</option>";
-                                                    } else {
-                                                        echo "<option value='" . $dataC["idcategoria"] . "'>" . utf8_encode($dataC["descripcion"]) . "</option>";
-                                                    }
+
+                <div class="col-sm-12 col-md-12 col-lg-12 ">
+                    <div class="card shadow border-dark">
+                        <div class="card-header bg-dark text-white">
+                            <span style="font-weight: 700 !important; font-size:18px">Detalle de ventas.</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th class='text-center' style="width: 25px;">Item</th>
+                                                <th class='text-center'>Producto</th>
+                                                <th class='text-center'>Precio. Venta</th>
+                                                <th class='text-center'>Cantidad</th>
+                                                <th class='text-center'>Total</th>
+                                                <th class='text-center'>Stock</th>
+                                                <th class='text-center'>Fecha</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+
+                                            if ($filas > 0) {
+                                                $c = 0;
+                                                while ($venta = mysqli_fetch_assoc($rsdetalleventa)) {
+                                                    $c = $c + 1;
+                                                    echo "<tr>
+                                                <td class='text-center'>" . $c . "</td>
+                                                <td class='text-center'>" . $venta["descripcion"] . "</td>
+                                                <td class='text-center'>S/ " . $venta["precioventa"] . "</td>
+                                                <td class='text-center'>" . $venta["cantidad"] . "</td>
+                                                <td class='text-center'>S/ " . $venta["Total"] . "</td>
+                                                <td class='text-center'>" . $venta["stock"] . "</td>
+                                                <td class='text-center'>" . $venta["fechaventa"] . "</td>
+                                                </tr>";
                                                 }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="txtcantidad">Cantidad:</label>
-                                            <input type="number" name="txtcantidad" id="txtcantidad" class="form-control" value='<?php echo $dtopro['Stock'] ?>'>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="ddlundmedida">Medida:</label>
-                                            <select class="form-control" id="ddlundmedida" name="ddlundmedida">
-                                                <?php
-                                                while ($dataC = mysqli_fetch_assoc($rsmedidas)) {
-                                                    if ($dataC['idundmedida'] == $dtopro['idundmedida']) {
-                                                        echo "<option value='" . $dataC["idundmedida"] . "' selected='selected'>" . utf8_encode($dataC["descripcion"]) . "</option>";
-                                                    } else {
-                                                        echo "<option value='" . $dataC["idundmedida"] . "'>" . utf8_encode($dataC["descripcion"]) . "</option>";
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="txtpreciocompra">Prec. Costo:</label>
-                                            <input type="number" name="txtpreciocompra" id="txtpreciocompra" class="form-control" step="0.01" value='<?php echo $dtopro['preciocompra'] ?>'>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3">
-                                        <div class="form-group">
-                                            <label for="txtprecioventa">Prec. Venta:</label>
-                                            <input type="number" name="txtprecioventa" id="txtprecioventa" class="form-control" step="0.01" value='<?php echo $dtopro['precioventa'] ?>'>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12">
-                                        <div class="btn-group">
-                                            <input type="submit" value="Guardar" name="btnguardar" class="btn btn-success ">
-                                            <a href="busquedabodega.php"> <input type="button" value="Volver" class="btn btn-danger"></a>
-                                        </div>
+                                            }
+
+
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="btn-group">
+                                        <a href="busquedabodega.php"> <input type="button" value="Volver" class="btn btn-danger"></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-                </form>
+
+                </div>
             </div>
         </div>
 
@@ -129,11 +111,7 @@
     <script>
         $(document).ready(function() {
             // $('.selectpicker').selectpicker();
-            $('#example').DataTable();
-
-
-            $('#txtfecha1').val(today);
-            $('#txtfecha2').val(today);
+            $('#example1').DataTable();
 
             $('#example').DataTable({
                 "language": {
@@ -159,55 +137,6 @@
             });
         });
 
-
-        function GetDataVentas() {
-var codventa =$('').val();
-
-
-            $.ajax({
-                // la URL para la petición
-                url: 'consultas.php',
-
-                // especifica si será una petición POST o GET
-                type: 'GET',
-
-                // la información a enviar
-                // (también es posible utilizar una cadena de datos)
-                data: {
-                    tipo: 'CV',
-                    codventa: codventa,
-                },
-
-                // el tipo de información que se espera de respuesta
-                dataType: 'json',
-
-                // código a ejecutar si la petición es satisfactoria;
-                // la respuesta es pasada como argumento a la función
-                success: function(json) {
-
-                    var rspta = JSON.parse(json);
-
-                    if (rspta.estado == "OK") {
-                        alert("¡Registro exitoso!");
-                        location.reload();
-                    } else {
-                        alert("Error de registro.");
-                    }
-                },
-
-                // código a ejecutar si la petición falla;
-                // son pasados como argumentos a la función
-                // el objeto de la petición en crudo y código de estatus de la petición
-                error: function(xhr, status) {
-                    alert('Disculpe, existió un problema');
-                },
-
-                // código a ejecutar sin importar si la petición falló o no
-                complete: function(xhr, status) {
-                    // alert('Petición realizada');
-                }
-            });
-        }
     </script>
 </body>
 

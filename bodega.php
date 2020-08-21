@@ -278,7 +278,7 @@ $rsProductos = mysqli_query($Conex, "Select idproducto,descripcion from producto
         function RegistrarVentas(codproducto, preciocompra, precioventa, cantidad, subtotal, total) {
 
             var f = new Date();
-            var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds());;
+            var fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate() + " " + (f.getHours()) + ":" + (f.getMinutes()) + ":" + (f.getSeconds());
 
             $.ajax({
                 // la URL para la petición
