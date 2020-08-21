@@ -92,7 +92,7 @@ if (isset($_POST["buscav"])) {
                                     // }
                                     ?>
                                 </select> -->
-                                    <div class="row" >
+                                    <div class="row">
                                         <div class="col-sm-12 col-lg-6 col-md-6 ">
                                             <div class="form-group ">
                                                 <label for="txtfecha1" style="color: red;">Inicio:</label>
@@ -143,7 +143,7 @@ if (isset($_POST["buscav"])) {
                                                 <td class='text-center'>" . $c . "</td>
                                                 <td class='text-center'>" . $venta["fecha"] . "</td>
                                                 <td class='text-center'>" . $venta["hora"] . "</td>
-                                                <td class='text-center'>S/" . $venta["totalventa"] . "</td>
+                                                <td class='text-center' id='total'>" . $venta["totalventa"] . "</td>
                                                 <td class='text-center'><a href='detalleventa.php?id=" . $venta["idventa"] . "'><button class='btn btn-primary'>Detalle</button></a></td>
                                                 </tr>";
                                         }
@@ -290,6 +290,7 @@ if (isset($_POST["buscav"])) {
 
                         for (let index = 0; index < count; index++) {
                             $('#example').append('<tr id="datatable"><td class="text-center">' + (index + 1) + '</td><td class="text-center" >' + json[index].fecha + '</td><td class="text-center" >' + json[index].hora + '</td><td class="text-center" >' + json[index].total + '</td><td class="text-center" ><a href="detalleventa.php?id=' + json[index].codigo + '"><button class="btn btn-primary">Detalle</button></a></td></tr>');
+                            SumarTotales();
                         }
                     } else {
                         $('#example').find("[id='datatable']").remove();
@@ -321,6 +322,19 @@ if (isset($_POST["buscav"])) {
             });
         }
 
+
+        function SumarTotales() {
+
+            var VentasTotal = 0;
+            $("#example").find("td[id='total']").each(function() {
+                var subt = $(this).text();
+                if (subt != "") {
+                    VentasTotal = parseFloat(VentasTotal) + parseFloat(subt);
+                }
+            });
+
+            $("#TotalVentas").val("S/. " + VentasTotal.toFixed(2));
+        }
 
         // function validarestado(control) {
         //     switch (control.value) {
